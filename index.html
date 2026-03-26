@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Revolución Francesa: Arde París — Liberation Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES & RESET
+   ============================================================ */
+:root {
+  --noir: #0a0a0a;
+  --noir-mid: #111111;
+  --noir-soft: #1a1a1a;
+  --rouge: #c0392b;
+  --rouge-bright: #e74c3c;
+  --rouge-dark: #7b1e14;
+  --blanc: #f0ece4;
+  --blanc-dim: #b8b0a0;
+  --or: #c9a84c;
+  --or-dim: #8a6f2e;
+  --bleu: #1a3a5c;
+  --text-body: #d4cfc6;
+  --border: rgba(192,57,43,0.3);
+  --glow: rgba(192,57,43,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--noir);
+  color: var(--text-body);
+  font-family: 'EB Garamond', Georgia, serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ============================================================
+   NOISE TEXTURE OVERLAY
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--noir); }
+::-webkit-scrollbar-thumb { background: var(--rouge-dark); border-radius: 3px; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10,10,10,0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  padding: 0 1.5rem;
+}
+
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--rouge);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding: 0.4rem 0.8rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blanc-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-links a:hover { color: var(--rouge-bright); }
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--blanc-dim);
+  transition: all 0.3s;
+}
+
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  background: rgba(10,10,10,0.99);
+  border-bottom: 1px solid var(--border);
+  z-index: 999;
+  padding: 1rem 0;
+}
+
+.nav-mobile.open { display: block; }
+
+.nav-mobile a {
+  display: block;
+  padding: 0.8rem 2rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blanc-dim);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(192,57,43,0.1);
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-mobile a:hover { color: var(--rouge-bright); background: rgba(192,57,43,0.05); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#inicio {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 1.5rem 3rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(192,57,43,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(26,58,92,0.15) 0%, transparent 60%),
+    linear-gradient(180deg, #0a0a0a 0%, #0f0a08 50%, #0a0a0a 100%);
+}
+
+.hero-flame-left, .hero-flame-right {
+  position: absolute;
+  bottom: 0;
+  width: 300px;
+  height: 500px;
+  pointer-events: none;
+}
+
+.hero-flame-left { left: 0; background: radial-gradient(ellipse at bottom left, rgba(192,57,43,0.2) 0%, transparent 70%); }
+.hero-flame-right { right: 0; background: radial-gradient(ellipse at bottom right, rgba(192,57,43,0.2) 0%, transparent 70%); }
+
+/* Animated embers */
+.ember {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--rouge-bright);
+  border-radius: 50%;
+  animation: floatEmber linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatEmber {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-100vh) translateX(var(--drift)); opacity: 0; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  animation: heroFadeIn 1.2s ease-out forwards;
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-studio {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--or-dim);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.hero-studio::before, .hero-studio::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--or-dim);
+}
+
+.hero-title-sub {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1rem, 3vw, 1.6rem);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--blanc-dim);
+  margin-bottom: 0.3rem;
+}
+
+.hero-title-main {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.8rem, 10vw, 7rem);
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--rouge-bright);
+  text-shadow:
+    0 0 60px rgba(192,57,43,0.6),
+    0 0 120px rgba(192,57,43,0.3),
+    2px 2px 0 rgba(0,0,0,0.8);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-divider {
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--or), transparent);
+  margin: 0 auto 1.5rem;
+}
+
+.hero-tagline {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-style: italic;
+  color: var(--blanc-dim);
+  margin-bottom: 0.5rem;
+}
+
+.hero-platform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.platform-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blanc);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.4rem 1rem;
+  border-radius: 2px;
+}
+
+.pegi-badge {
+  background: var(--rouge-dark);
+  border: 2px solid var(--rouge);
+  color: var(--blanc);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.hero-nav-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.btn-primary {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blanc);
+  background: var(--rouge);
+  border: 1px solid var(--rouge-bright);
+  padding: 0.85rem 2.2rem;
+  text-decoration: none;
+  transition: all 0.25s;
+  cursor: pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+.btn-primary:hover {
+  background: var(--rouge-bright);
+  box-shadow: 0 0 30px rgba(192,57,43,0.5);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--or);
+  background: transparent;
+  border: 1px solid var(--or-dim);
+  padding: 0.85rem 2.2rem;
+  text-decoration: none;
+  transition: all 0.25s;
+  cursor: pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+.btn-secondary:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: var(--or);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   SECTION BASE
+   ============================================================ */
+section { padding: 5rem 1.5rem; }
+
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--blanc);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.section-rule {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rouge), transparent);
+  margin: 0 auto 1.5rem;
+}
+
+.section-desc {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--blanc-dim);
+  max-width: 600px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+/* ============================================================
+   FICHA TÉCNICA
+   ============================================================ */
+#ficha {
+  background: linear-gradient(180deg, var(--noir) 0%, var(--noir-soft) 50%, var(--noir) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.ficha-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.ficha-item {
+  background: var(--noir-mid);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ficha-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rouge);
+}
+
+.ficha-value {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--blanc);
+  font-weight: 500;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--noir-soft);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.feature-card:hover {
+  border-color: var(--rouge);
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.feature-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 0.4rem;
+}
+
+.feature-desc {
+  font-size: 0.9rem;
+  color: var(--blanc-dim);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+#linea-de-tiempo {
+  background: var(--noir);
+}
+
+.timeline-wrapper {
+  position: relative;
+  overflow-x: auto;
+  padding-bottom: 2rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.timeline-track {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.timeline-track::before {
+  content: '';
+  position: absolute;
+  top: 38px;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rouge-dark), var(--rouge), var(--rouge-dark), transparent);
+}
+
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 160px;
+  cursor: pointer;
+  padding: 0 0.5rem;
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--rouge-dark);
+  border: 2px solid var(--rouge);
+  margin-bottom: 0.8rem;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.timeline-item:hover .timeline-dot, .timeline-item.active .timeline-dot {
+  background: var(--rouge-bright);
+  box-shadow: 0 0 16px var(--rouge-bright);
+  transform: scale(1.4);
+}
+
+.timeline-year {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--or-dim);
+  margin-bottom: 0.4rem;
+}
+
+.timeline-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--blanc-dim);
+  line-height: 1.3;
+  max-width: 130px;
+  transition: color 0.3s;
+}
+
+.timeline-item:hover .timeline-name, .timeline-item.active .timeline-name {
+  color: var(--blanc);
+}
+
+.timeline-detail {
+  display: none;
+  max-width: 800px;
+  margin: 3rem auto 0;
+  background: var(--noir-soft);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--rouge);
+  padding: 2rem;
+  animation: fadeSlideIn 0.4s ease-out;
+}
+
+.timeline-detail.visible { display: block; }
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.detail-acto {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 0.4rem;
+}
+
+.detail-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--blanc);
+  margin-bottom: 0.3rem;
+}
+
+.detail-fecha {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  color: var(--or-dim);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.detail-texto {
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.8;
+}
+
+.detail-mision {
+  margin-top: 1.2rem;
+  padding: 1rem;
+  background: rgba(192,57,43,0.07);
+  border-left: 2px solid var(--rouge-dark);
+}
+
+.detail-mision-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.badge-principal {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--rouge-dark);
+  color: var(--blanc);
+  padding: 0.2rem 0.6rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge-secundaria {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--bleu);
+  color: var(--blanc);
+  padding: 0.2rem 0.6rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   MISIONES (ACTOS)
+   ============================================================ */
+#misiones {
+  background: linear-gradient(180deg, var(--noir) 0%, #0d0a09 100%);
+}
+
+.acto-block { margin-bottom: 4rem; }
+
+.acto-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.acto-number {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--rouge-dark);
+  opacity: 0.6;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.acto-info {}
+
+.acto-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 0.2rem;
+}
+
+.acto-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-weight: 700;
+  color: var(--blanc);
+}
+
+.mision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.mision-card {
+  background: var(--noir-soft);
+  border: 1px solid rgba(192,57,43,0.2);
+  padding: 1.5rem;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.mision-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--rouge-dark);
+  transition: background 0.3s;
+}
+
+.mision-card:hover::before { background: var(--rouge-bright); }
+
+.mision-card:hover {
+  border-color: var(--rouge);
+  transform: translateX(4px);
+  box-shadow: -4px 0 20px rgba(192,57,43,0.15);
+}
+
+.mision-card.secundaria::before { background: var(--bleu); }
+.mision-card.secundaria:hover::before { background: #3a6fa8; }
+
+.mision-num {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--rouge-dark);
+  margin-bottom: 0.4rem;
+}
+
+.mision-card.secundaria .mision-num { color: #3a6fa8; }
+
+.mision-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--blanc);
+  margin-bottom: 0.5rem;
+}
+
+.mision-type {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.type-principal { background: var(--rouge-dark); color: var(--blanc); }
+.type-secundaria { background: var(--bleu); color: var(--blanc); }
+
+.mision-desc {
+  font-size: 0.9rem;
+  color: var(--blanc-dim);
+  line-height: 1.6;
+  display: none;
+}
+
+.mision-card.expanded .mision-desc { display: block; }
+
+.mision-consejo {
+  margin-top: 0.8rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(201,168,76,0.07);
+  border-left: 2px solid var(--or-dim);
+  font-size: 0.85rem;
+  color: var(--or-dim);
+  display: none;
+  font-style: italic;
+}
+
+.mision-card.expanded .mision-consejo { display: block; }
+
+.mision-toggle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rouge-dark);
+  margin-top: 0.6rem;
+  display: inline-block;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.mision-card:hover .mision-toggle { color: var(--rouge); }
+
+/* ============================================================
+   TRUCOS
+   ============================================================ */
+#trucos {
+  background: var(--noir-soft);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.trucos-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.truco-tab {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.8rem 1.5rem;
+  color: var(--blanc-dim);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.truco-tab:hover { color: var(--blanc); }
+.truco-tab.active { color: var(--rouge-bright); border-bottom-color: var(--rouge-bright); }
+
+.truco-panel { display: none; }
+.truco-panel.active { display: block; animation: fadeSlideIn 0.3s ease-out; }
+
+.truco-section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--or);
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+
+.truco-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  align-items: flex-start;
+}
+
+.truco-key {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: var(--noir);
+  border: 1px solid var(--rouge-dark);
+  color: var(--rouge-bright);
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  font-size: 0.7rem;
+}
+
+.truco-info {}
+
+.truco-nombre {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blanc);
+  margin-bottom: 0.3rem;
+}
+
+.truco-efecto {
+  font-size: 0.9rem;
+  color: var(--blanc-dim);
+  line-height: 1.5;
+}
+
+.truco-narrativo {
+  font-size: 0.85rem;
+  color: var(--or-dim);
+  font-style: italic;
+  margin-top: 0.3rem;
+}
+
+/* ============================================================
+   NOVELA
+   ============================================================ */
+#novela {
+  background: var(--noir);
+}
+
+.novela-container {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.novela-meta {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.novela-subtitle {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--or-dim);
+  margin-bottom: 0.3rem;
+}
+
+.novela-author {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--blanc-dim);
+}
+
+.novela-chapter {
+  margin-bottom: 3.5rem;
+}
+
+.chapter-number {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.chapter-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--blanc);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.chapter-text {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.95;
+  color: var(--text-body);
+  text-align: justify;
+}
+
+.chapter-text p { margin-bottom: 1.2rem; }
+
+.chapter-text p:first-child::first-letter {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--rouge);
+  float: left;
+  line-height: 0.8;
+  margin: 0.1rem 0.2rem 0 0;
+}
+
+.chapter-dialogue {
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--rouge-dark);
+  margin: 1rem 0;
+  font-style: italic;
+  color: var(--blanc-dim);
+}
+
+/* ============================================================
+   BANDA SONORA
+   ============================================================ */
+#banda-sonora {
+  background: linear-gradient(180deg, var(--noir-soft) 0%, var(--noir) 100%);
+  border-top: 1px solid var(--border);
+}
+
+.soundtrack-player {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Current track display */
+.player-main {
+  background: var(--noir-mid);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(192,57,43,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.player-now-playing {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 1rem;
+}
+
+.player-track-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: 700;
+  color: var(--blanc);
+  margin-bottom: 0.3rem;
+}
+
+.player-track-character {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  color: var(--or-dim);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Progress bar */
+.player-progress-wrap {
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.player-progress-bg {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  position: relative;
+  border-radius: 2px;
+}
+
+.player-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rouge-dark), var(--rouge-bright));
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.1s linear;
+  position: relative;
+}
+
+.player-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: 12px;
+  height: 12px;
+  background: var(--rouge-bright);
+  border-radius: 50%;
+  border: 2px solid var(--noir-mid);
+}
+
+.player-time {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  color: var(--blanc-dim);
+  margin-top: 0.4rem;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.ctrl-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--blanc-dim);
+  font-size: 1.2rem;
+  transition: color 0.2s, transform 0.2s;
+  padding: 0.4rem;
+  line-height: 1;
+}
+
+.ctrl-btn:hover { color: var(--blanc); transform: scale(1.1); }
+
+.ctrl-btn.play-pause {
+  width: 52px;
+  height: 52px;
+  background: var(--rouge);
+  border-radius: 50%;
+  color: var(--blanc);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--rouge-bright);
+  transition: all 0.2s;
+}
+
+.ctrl-btn.play-pause:hover {
+  background: var(--rouge-bright);
+  box-shadow: 0 0 20px rgba(192,57,43,0.5);
+  transform: scale(1.05);
+}
+
+.volume-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 80px;
+  height: 3px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--rouge-bright);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Track list */
+.track-list { display: flex; flex-direction: column; gap: 0; }
+
+.track-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.2s;
+  position: relative;
+}
+
+.track-item:hover { background: rgba(192,57,43,0.05); }
+.track-item.active { background: rgba(192,57,43,0.1); }
+.track-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--rouge-bright);
+}
+
+.track-num {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  color: var(--blanc-dim);
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.track-item.active .track-num {
+  color: var(--rouge-bright);
+}
+
+.track-info { flex: 1; min-width: 0; }
+
+.track-title-list {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blanc);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-character-list {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--blanc-dim);
+  font-style: italic;
+}
+
+.track-lyrics-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--or-dim);
+  background: none;
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.track-lyrics-btn:hover {
+  color: var(--or);
+  border-color: var(--or-dim);
+}
+
+/* Lyrics panel */
+.lyrics-panel {
+  display: none;
+  background: var(--noir);
+  border: 1px solid var(--border);
+  border-top: none;
+  padding: 1.5rem;
+  animation: fadeSlideIn 0.3s ease-out;
+}
+
+.lyrics-panel.open { display: block; }
+
+.lyrics-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 1rem;
+}
+
+.lyrics-text {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  line-height: 2;
+  color: var(--text-body);
+  white-space: pre-line;
+}
+
+/* ============================================================
+   NOVELA - condensed inline
+   ============================================================ */
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--noir-mid);
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--rouge);
+  margin-bottom: 0.5rem;
+}
+
+.footer-studio {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--blanc-dim);
+  margin-bottom: 1rem;
+}
+
+.footer-badges {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.footer-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--blanc-dim);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.3rem 0.7rem;
+}
+
+.footer-legal {
+  font-size: 0.8rem;
+  color: rgba(180,170,160,0.4);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  section { padding: 3.5rem 1rem; }
+
+  .hero-title-main { font-size: clamp(2.2rem, 14vw, 4rem); }
+
+  .mision-grid { grid-template-columns: 1fr; }
+
+  .trucos-tabs { gap: 0; }
+  .truco-tab { padding: 0.7rem 0.9rem; font-size: 0.6rem; }
+
+  .player-controls { gap: 1rem; }
+  .volume-wrap { margin-left: 0; width: 100%; }
+
+  .ficha-grid { grid-template-columns: 1fr; }
+
+  .acto-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .acto-number { font-size: 2rem; }
+
+  .chapter-text { text-align: left; }
+}
+
+@media (max-width: 480px) {
+  .hero-nav-btns { flex-direction: column; align-items: center; }
+  .btn-primary, .btn-secondary { width: 100%; max-width: 280px; text-align: center; }
+  .timeline-item { min-width: 120px; }
+  .timeline-name { font-size: 0.55rem; max-width: 100px; }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Separator fleur */
+.fleur-sep {
+  text-align: center;
+  color: var(--rouge-dark);
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  letter-spacing: 0.5em;
+  opacity: 0.5;
+}
+
+/* Blockquote style */
+.quote-block {
+  border-left: 3px solid var(--rouge-dark);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  background: rgba(192,57,43,0.04);
+}
+
+.quote-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--blanc-dim);
+  line-height: 1.8;
+}
+
+.quote-source {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--rouge-dark);
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="#inicio" class="nav-logo">⚜ Arde París</a>
+    <ul class="nav-links">
+      <li><a href="#ficha">Ficha Técnica</a></li>
+      <li><a href="#linea-de-tiempo">Línea de Tiempo</a></li>
+      <li><a href="#misiones">Misiones</a></li>
+      <li><a href="#trucos">Trucos</a></li>
+      <li><a href="#novela">Novela</a></li>
+      <li><a href="#banda-sonora">Banda Sonora</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#ficha" onclick="closeMobileMenu()">Ficha Técnica</a>
+  <a href="#linea-de-tiempo" onclick="closeMobileMenu()">Línea de Tiempo</a>
+  <a href="#misiones" onclick="closeMobileMenu()">Misiones</a>
+  <a href="#trucos" onclick="closeMobileMenu()">Trucos</a>
+  <a href="#novela" onclick="closeMobileMenu()">Novela</a>
+  <a href="#banda-sonora" onclick="closeMobileMenu()">Banda Sonora</a>
+</div>
+
+<!-- ============================================================ HERO -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-flame-left"></div>
+  <div class="hero-flame-right"></div>
+
+  <!-- Embers -->
+  <div id="embers"></div>
+
+  <div class="hero-content">
+    <div class="hero-studio">Liberation Studios · Ubisoft</div>
+    <div class="hero-title-sub">Revolución Francesa</div>
+    <h1 class="hero-title-main">Arde París</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Las memorias de Étienne Moreau</p>
+    <p style="font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.2em; color:var(--or-dim); text-transform:uppercase; margin-top:0.3rem;">Un RPG de Acción Histórica · PS5</p>
+
+    <div class="hero-platform">
+      <span class="platform-badge">PS5</span>
+      <span class="platform-badge">DualSense</span>
+      <span class="platform-badge">Audio 3D</span>
+      <span class="platform-badge">1–4 Jugadores</span>
+      <div class="pegi-badge">18</div>
+    </div>
+
+    <div class="hero-nav-btns">
+      <a href="#misiones" class="btn-primary">Explorar Misiones</a>
+      <a href="#banda-sonora" class="btn-secondary">Banda Sonora</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FICHA TÉCNICA -->
+<section id="ficha">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="section-eyebrow">Información del Juego</span>
+      <h2 class="section-title">Ficha Técnica</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="ficha-grid fade-in">
+      <div class="ficha-item"><span class="ficha-label">Título</span><span class="ficha-value">Revolución Francesa: Arde París</span></div>
+      <div class="ficha-item"><span class="ficha-label">Desarrollador</span><span class="ficha-value">Liberation Studios</span></div>
+      <div class="ficha-item"><span class="ficha-label">Editor</span><span class="ficha-value">Ubisoft</span></div>
+      <div class="ficha-item"><span class="ficha-label">Plataforma</span><span class="ficha-value">PlayStation 5</span></div>
+      <div class="ficha-item"><span class="ficha-label">Género</span><span class="ficha-value">RPG de Acción Histórica</span></div>
+      <div class="ficha-item"><span class="ficha-label">Clasificación</span><span class="ficha-value">PEGI 18 — Violencia · Lenguaje soez</span></div>
+      <div class="ficha-item"><span class="ficha-label">Jugadores</span><span class="ficha-value">1–4 (Cooperativo online)</span></div>
+      <div class="ficha-item"><span class="ficha-label">Ambientación</span><span class="ficha-value">París, Francia · 1789–1799</span></div>
+      <div class="ficha-item"><span class="ficha-label">Protagonista</span><span class="ficha-value">Étienne Moreau, artesano de los Cordeliers</span></div>
+      <div class="ficha-item"><span class="ficha-label">Código</span><span class="ficha-value">USST7090709 · PF04-0734</span></div>
+      <div class="ficha-item"><span class="ficha-label">Formato</span><span class="ficha-value">Ultra HD Blu-ray · Descarga Digital</span></div>
+      <div class="ficha-item"><span class="ficha-label">Audio</span><span class="ficha-value">Dolby Atmos · DTS Digital Surround · 3D</span></div>
+    </div>
+
+    <div class="features-grid fade-in">
+      <div class="feature-card">
+        <span class="feature-icon">⚔️</span>
+        <div class="feature-title">Combate Urbano</div>
+        <div class="feature-desc">Sistema de esgrima y sigilo en las calles de París en llamas.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📜</span>
+        <div class="feature-title">Rigor Histórico</div>
+        <div class="feature-desc">20 eventos reales de la Revolución Francesa, fielmente recreados.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🗺️</span>
+        <div class="feature-title">Mundo Abierto</div>
+        <div class="feature-desc">Explora Versalles, la Bastilla, las Tullerías y las catacumbas.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎭</span>
+        <div class="feature-title">Decisiones Morales</div>
+        <div class="feature-desc">Tus elecciones cambian el curso de la historia. ¿Virtud o supervivencia?</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎵</span>
+        <div class="feature-title">Banda Sonora Original</div>
+        <div class="feature-desc">10 canciones que narran la voz de los protagonistas históricos.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🤝</span>
+        <div class="feature-title">Cooperativo 4 Jugadores</div>
+        <div class="feature-desc">Comparte la Revolución con hasta 3 compañeros online.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ LÍNEA DE TIEMPO -->
+<section id="linea-de-tiempo">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="section-eyebrow">1789 — 1799</span>
+      <h2 class="section-title">Línea de Tiempo</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">Toca cada evento para descubrir el contexto histórico y la misión correspondiente.</p>
+    </div>
+
+    <div class="timeline-wrapper fade-in">
+      <div class="timeline-track" id="timeline-track">
+        <!-- JS generated -->
+      </div>
+    </div>
+    <div class="timeline-detail" id="timeline-detail"></div>
+  </div>
+</section>
+
+<!-- ============================================================ MISIONES -->
+<section id="misiones">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="section-eyebrow">Guía Completa</span>
+      <h2 class="section-title">Misiones</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">Toca cada misión para ver la descripción completa y el consejo táctico.</p>
+    </div>
+    <div id="misiones-content"></div>
+  </div>
+</section>
+
+<!-- ============================================================ TRUCOS -->
+<section id="trucos">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="section-eyebrow">Guía de Juego</span>
+      <h2 class="section-title">Trucos & Consejos</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="trucos-tabs fade-in">
+      <button class="truco-tab active" onclick="switchTab('codigos')">Códigos</button>
+      <button class="truco-tab" onclick="switchTab('acto1')">Acto I</button>
+      <button class="truco-tab" onclick="switchTab('acto2')">Acto II</button>
+      <button class="truco-tab" onclick="switchTab('acto3')">Acto III</button>
+      <button class="truco-tab" onclick="switchTab('acto4')">Acto IV</button>
+      <button class="truco-tab" onclick="switchTab('general')">General</button>
+    </div>
+
+    <div id="panel-codigos" class="truco-panel active fade-in">
+      <div class="truco-section-title">⚜ Códigos de Trucos — Menú Principal › Extras › Códigos</div>
+      <div class="truco-item">
+        <div class="truco-key">VIVELAREV</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Modo Invencible</div>
+          <div class="truco-efecto">Étienne no puede ser derrotado en combate. Ideal para explorar la historia sin interrupciones.</div>
+          <div class="truco-narrativo">"El pueblo tiene el acero de diez mil voluntades." — Danton</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">BASTILLE89</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Desbloquear todas las misiones</div>
+          <div class="truco-efecto">Accede a los 20 eventos históricos desde el inicio, en cualquier orden.</div>
+          <div class="truco-narrativo">"La Revolución no espera a nadie." — Robespierre</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">LIBERACION</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Armería completa</div>
+          <div class="truco-efecto">Desbloquea todas las armas de artesano: sables, ganzúas, bombas de humo y granadas pirotécnicas.</div>
+          <div class="truco-narrativo">"Las manos del artesano son el alma de la Revolución." — Étienne</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">ETIENNEMP</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Recursos infinitos</div>
+          <div class="truco-efecto">Madera, acero, pólvora y monedas ilimitados para fabricar y mejorar equipo.</div>
+          <div class="truco-narrativo">"El taller nunca cierra cuando la patria lo necesita."</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">INCORRUPT</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Modo "El Incorruptible"</div>
+          <div class="truco-efecto">Filtra todos los finales hacia el histórico. Las decisiones morales siempre eligen el camino de mayor rigor histórico.</div>
+          <div class="truco-narrativo">"La virtud sin el terror es impotente." — Robespierre</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">AGUILA1799</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Desbloquear Epílogo Imperial</div>
+          <div class="truco-efecto">Activa el modo New Game+ "Imperio" tras terminar el Acto IV, con nuevas misiones napoleónicas.</div>
+          <div class="truco-narrativo">"El orden ha vuelto, el caos terminó." — Napoleón</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-acto1" class="truco-panel fade-in">
+      <div class="truco-section-title">⚔ Acto I — El Despertar del Artesano (1789)</div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 1</div>
+        <div class="truco-info">
+          <div class="truco-nombre">El Gran Debate — Sigilo en Versalles</div>
+          <div class="truco-efecto">Equípate con el Traje de Sirviente antes de entrar. Los guardias ignoran a personajes con bandejas o herramientas visibles. Usa los conductos de ventilación del sótano sur para moverte sin ser detectado.</div>
+          <div class="truco-narrativo">Los Cahiers de Doléances robados están escondidos en el despacho del Conde de Artois, no en la sala principal.</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 2</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Unidos hasta el Final — Defensa del Juramento</div>
+          <div class="truco-efecto">Bloquea primero la puerta lateral izquierda con una carreta, luego la derecha. Si la salud de Bailly cae al 40%, usa la Bomba de Humo para despejar el camino hacia la sala. El juramento se activa automáticamente si proteges el perímetro 4 minutos.</div>
+          <div class="truco-narrativo">La "Pelota de la Suerte" en las vigas del techo desbloquea el logro oculto "Soberanía Nacional".</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 3</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Caída del Tirano — Toma de la Bastilla</div>
+          <div class="truco-efecto">Escala por las enredaderas del foso oeste para evitar el fuego directo. Los 4 cañones de la muralla este pueden destruirse con una sola carga explosiva si apuntas al barril central. Libera primero a los prisioneros del nivel inferior para obtener el Sable de la Guardia como recompensa.</div>
+          <div class="truco-narrativo">Entrar en la celda del "Hombre de la Máscara de Hierro" desbloquea el lore secreto del juego.</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 5</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Palabras de Libertad — La Declaración</div>
+          <div class="truco-efecto">Coloca abrojos en la entrada principal antes de que llegue la primera oleada. Protege solo las prensas 1 y 3; la prensa 2 es un señuelo. El mensajero realista huye por los tejados del barrio de Saint-Germain; usa el gancho para alcanzarlo en menos de 90 segundos.</div>
+          <div class="truco-narrativo">Si llegas a la imprenta de Desmoulins antes del amanecer, desbloqueas el discurso completo de Mirabeau.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-acto2" class="truco-panel fade-in">
+      <div class="truco-section-title">⚔ Acto II — La Corona Vacilante (1789–1792)</div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 6</div>
+        <div class="truco-info">
+          <div class="truco-nombre">El Rugido de las Madres — Marcha sobre Versalles</div>
+          <div class="truco-efecto">Permanece cerca del flanco izquierdo de la columna de mujeres; los agentes provocadores se infiltran por la derecha. En el palacio, el pasadizo secreto de María Antonieta está detrás del espejo del salón azul, segundo piso ala norte. Usa el hacha de artesano para forzar la cerradura en menos de 10 segundos.</div>
+          <div class="truco-narrativo">Recuperar las carretas de harina antes del amanecer otorga la Medalla de la Marcha, que aumenta la resistencia +20%.</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 8</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Fuego en la Frontera — Espías Austriacos</div>
+          <div class="truco-efecto">Los barriles rojos en la fábrica explotan en cadena; usa esto para limpiar grupos de enemigos. Los mensajes cifrados están en los bolsillos del mensajero, en el despacho del jefe y bajo el tablero de la taberna del barrio de Le Marais. No uses armas de fuego dentro de la fábrica: el ruido alerta a las patrullas exteriores.</div>
+          <div class="truco-narrativo">Forjar la espada "Revolucionaria" en la fundición enemiga requiere el Acero Templado que obtienes aquí.</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 9</div>
+        <div class="truco-info">
+          <div class="truco-nombre">El Fin de la Corona — Asalto a las Tullerías</div>
+          <div class="truco-efecto">Captura los cañones del patio exterior antes de atacar las puertas: reducen el tiempo del asalto a la mitad. El duelo contra el Comandante Suizo se gana con contraataques; él siempre finta dos veces antes del golpe real. El Armario de Hierro está en la habitación privada del Rey, pared norte, oculto tras el retrato de Luis XIV.</div>
+          <div class="truco-narrativo">El pasadizo secreto hacia el Louvre, descubierto aquí, sirve como atajo en misiones posteriores del Acto III.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-acto3" class="truco-panel fade-in">
+      <div class="truco-section-title">⚔ Acto III — El Reinado del Terror (1793–1794)</div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 11</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Sangre de Reyes — Ejecución de Luis XVI</div>
+          <div class="truco-efecto">Los francotiradores realistas están en 3 azoteas: óptica del relojero (calle derecha), campanario de Saint-Roch y terraza del café Procope. Elimínalos en ese orden para evitar que se reorganicen. Usa los cables entre edificios para moverte sin bajar a la multitud. Los conspiradores disfrazados llevan escarapelas blancas bajo la capa.</div>
+          <div class="truco-narrativo">Recoger la moneda de oro real del cadalso desbloquea el fragmento de historia "El Último Borbón".</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 16</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Escape de la Conciergerie — El Terror</div>
+          <div class="truco-efecto">El motín falso se activa lanzando una antorcha al montón de paja del patio sur. Tienes exactamente 4 minutos antes de que el carcelero regrese. El Kit de Ganzúas de Maestro obtenido aquí permite abrir cualquier cerradura del juego. Las cloacas de salida están en el nivel B2, no en el B1 donde los guardias esperan.</div>
+          <div class="truco-narrativo">Robar el "Libro de los Muertos" del registro desbloquea los nombres de todos los personajes secundarios ejecutados en el juego.</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 17</div>
+        <div class="truco-info">
+          <div class="truco-nombre">El Cazador Cazado — Caída de Robespierre</div>
+          <div class="truco-efecto">Saint-Just en duelo: bloquea sus primeros tres ataques sin contraatacar; el cuarto siempre es su punto débil, un golpe vertical. Las bombas de destello son esenciales para entrar en las habitaciones con más de 3 guardias. La última orden escrita de Robespierre está en su bolsillo izquierdo; recupérala antes de que las tropas lleguen al piso superior.</div>
+          <div class="truco-narrativo">Recuperar la carta de Robespierre dirigida a Étienne revela la verdad sobre el papel del protagonista en el Terror.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-acto4" class="truco-panel fade-in">
+      <div class="truco-section-title">⚔ Acto IV — El Camino al Imperio (1795–1799)</div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 19</div>
+        <div class="truco-info">
+          <div class="truco-nombre">El Ascenso del Águila — Puente de Arcole</div>
+          <div class="truco-efecto">Flanquea las posiciones austriacas por los pantanos del este: usa el humo de los cañones aliados como cobertura. Napoleón debe sobrevivir con al menos 30% de salud para desbloquear la escena de diálogo final. El mapa estratégico del general austriaco está en la tienda de campaña norte, custodiado solo por 2 guardias en el turno del amanecer.</div>
+          <div class="truco-narrativo">Proteger a Napoleón en este momento desbloquea su diálogo sobre el futuro del Imperio en el Acto final.</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Misión 20</div>
+        <div class="truco-info">
+          <div class="truco-nombre">El Nuevo Orden — 18 de Brumario</div>
+          <div class="truco-efecto">Convencer a los 3 guardias de cambiar de bando requiere tener el Anillo de Sello del Comité de la misión 12. Barras firma su dimisión si le muestras las pruebas de corrupción del Directorio (recogidas en la misión 18). Para capturar a los diputados que saltan por ventanas, usa la red de artesano en el jardín sur antes de entrar al salón.</div>
+          <div class="truco-narrativo">Ser el primero en saludar a Napoleón como "Primer Cónsul" desbloquea el Modo "Imperio" — New Game+ con nuevas misiones.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-general" class="truco-panel fade-in">
+      <div class="truco-section-title">⚜ Consejos Generales de Étienne Moreau</div>
+      <div class="truco-item">
+        <div class="truco-key">Artesanía</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Siempre lleva herramientas de cerrajero</div>
+          <div class="truco-efecto">Las Ganzúas son la habilidad más versátil del juego. Casi todas las misiones tienen una ruta alternativa que solo se abre con este equipo, evitando el combate directo y otorgando más XP.</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Sigilo</div>
+        <div class="truco-info">
+          <div class="truco-nombre">El Traje de Artesano es tu mejor disfraz</div>
+          <div class="truco-efecto">En entornos como Versalles, la Asamblea o el Comité, el traje de artesano reduce el radio de detección a la mitad. Los guardias asumen que estás reparando algo.</div>
+          <div class="truco-narrativo">"Un carpintero con sus herramientas es invisible para los que no saben mirar." — Étienne</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Moral</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Las decisiones morales tienen consecuencias tardías</div>
+          <div class="truco-efecto">Ayudar o no a inocentes en misiones secundarias (como "Justicia Ciega") afecta qué personajes históricos te apoyan en el Acto IV. Un Étienne más humano recibe ayuda de Lafayette y Desmoulins en el clímax final.</div>
+          <div class="truco-narrativo">"El Terror que siembras hoy es el juicio que cosecharás mañana." — Las Memorias de Étienne Moreau</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Colección</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Los documentos históricos desbloquean lore</div>
+          <div class="truco-efecto">Recoge los 20 Cahiers de Doléances repartidos por el mapa para desbloquear el "Archivo de la Revolución", una enciclopedia histórica completa accesible desde el menú principal.</div>
+        </div>
+      </div>
+      <div class="truco-item">
+        <div class="truco-key">Parkour</div>
+        <div class="truco-info">
+          <div class="truco-nombre">Los tejados de París son autopistas</div>
+          <div class="truco-efecto">Moverse por los tejados evita el 80% de las patrullas callejeras. Las chimeneas pueden usarse como plataformas y las cuerdas de ropa tendida permiten deslizamientos rápidos entre edificios. El gancho de artesano se desbloquea tras completar la misión 13.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ NOVELA -->
+<section id="novela">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="section-eyebrow">Lore Oficial del Juego</span>
+      <h2 class="section-title">Arde París</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="novela-container fade-in">
+      <div class="novela-meta">
+        <div class="novela-subtitle">Las Memorias de Étienne Moreau</div>
+        <div class="novela-author">Una epopeya en el corazón de la Revolución · París, 1789–1794</div>
+      </div>
+
+      <div class="quote-block">
+        <div class="quote-text">"París en 1789 no era una ciudad, era una bestia hambrienta que despertaba tras un sueño de mil años."</div>
+        <div class="quote-source">— Prólogo, Étienne Moreau</div>
+      </div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Prólogo</span>
+        <div class="chapter-title">El Olor de la Tinta y la Sangre</div>
+        <div class="chapter-text">
+          <p>Mi nombre es Étienne Moreau. Si estás leyendo esto, es porque el humo de los cañones finalmente se ha disipado o porque la guillotina ha terminado su macabra danza conmigo. Fui impresor antes de ser soldado; fui ciudadano antes de ser una sombra. Durante años, mis manos estuvieron manchadas por la tinta negra de los panfletos que llamaban a la libertad; después, se mancharon con algo que ninguna prensa puede limpiar.</p>
+          <p>París en 1789 no era una ciudad, era una bestia hambrienta que despertaba tras un sueño de mil años. Las calles olían a alcantarilla, a pan rancio y a una esperanza desesperada que quemaba más que el aguardiente. Yo estaba allí, en el distrito de los Cordeliers, viendo cómo el mundo que conocíamos se desmoronaba piedra a piedra. Conocí a los gigantes y a los monstruos, y descubrí que a menudo eran la misma persona.</p>
+        </div>
+      </div>
+
+      <div class="fleur-sep">⚜ ⚜ ⚜</div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Capítulo I</span>
+        <div class="chapter-title">El Trueno en el Café de Foy</div>
+        <div class="chapter-text">
+          <p>El 12 de julio de 1789, el calor en París era una losa. Me encontraba en el Palais-Royal, el cuartel general de la agitación popular. Allí, en el Café de Foy, el aire estaba tan saturado de retórica que se podía encender una pipa con solo escuchar.</p>
+          <p>Fue entonces cuando lo vi por primera vez. Camille Desmoulins, con su tartamudeo nervioso y su mirada de poeta febril, saltó sobre una mesa de madera. Tenía una pistola en cada mano y el rostro bañado en sudor.</p>
+          <div class="chapter-dialogue">—¡Ciudadanos! —gritó, su voz rompiéndose por la emoción—. ¡El despido de Necker es la señal de una noche de San Bartolomé para los patriotas! ¡A las armas! ¡A las armas y tomad escarapelas para reconocernos!</div>
+          <p>La multitud estalló. Yo mismo me vi arrastrado por la marea. Camille bajó de la mesa y nuestros ojos se cruzaron.</p>
+          <div class="chapter-dialogue">—Tú eres Moreau, el impresor —dijo, jadeando—. Necesito que inundes las calles con este grito. No dejes que la mecha se apague.</div>
+          <p>Pero Camille no era el único poder en las sombras. Detrás de él, sentado en una mesa lateral, un hombre con hombros como vigas de roble y un rostro marcado por las cicatrices de la viruela observaba con una sonrisa sardónica. Era Georges-Jacques Danton. Su sola presencia parecía reducir el tamaño de la habitación.</p>
+          <div class="chapter-dialogue">—Desmoulins pone las palabras, Moreau —tronó Danton, poniéndome una mano pesada sobre el hombro—. Pero tú y yo pondremos la fuerza. La libertad es una puta cara; hay que estar dispuesto a pagar su precio en oro o en plomo. Mañana, busca al Marqués de La Fayette. Él cree que puede dirigir esta tormenta con guantes de seda. Enséñale que París prefiere el hierro.</div>
+        </div>
+      </div>
+
+      <div class="fleur-sep">⚜ ⚜ ⚜</div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Capítulo II</span>
+        <div class="chapter-title">La Bastilla: La Caída del Ídolo de Piedra</div>
+        <div class="chapter-text">
+          <p>El 14 de julio amaneció con el color del hierro. Yo formaba parte de la milicia improvisada que rodeaba la fortaleza de la Bastilla. Mis manos, acostumbradas a la suavidad del papel, ahora se cerraban con torpeza sobre el cañón de un mosquete robado de los Inválidos.</p>
+          <p>Allí conocí a Gilbert du Motier, el Marqués de La Fayette. Montaba un caballo blanco que parecía fuera de lugar entre el fango y la furia. Su uniforme de la Guardia Nacional estaba impecable, reflejando su deseo de orden en medio del caos.</p>
+          <div class="chapter-dialogue">—¡Moreau! —me gritó desde su montura, mientras las balas empezaban a silbar desde las torres—. ¡Dile a tus hombres que mantengan la línea! ¡Si esto se convierte en una masacre, la posteridad no nos perdonará!</div>
+          <div class="chapter-dialogue">—¡El pueblo no busca el perdón de la posteridad, Marqués! —le respondí, mientras veía cómo la cabeza del gobernador De Launay era alzada en una pica—. ¡Busca pan hoy y justicia mañana!</div>
+          <p>La Fayette apretó las mandíbulas. Ese día, la llave de la Bastilla fue entregada a La Fayette, pero el alma de París ya pertenecía a la calle.</p>
+        </div>
+      </div>
+
+      <div class="fleur-sep">⚜ ⚜ ⚜</div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Capítulo III</span>
+        <div class="chapter-title">El Salón de los Espejos y el Olor del Miedo</div>
+        <div class="chapter-text">
+          <p>En octubre, acompañé a la marcha de las mujeres hacia Versalles. El hambre las había convertido en Furias. Fui uno de los pocos hombres admitidos en los pasillos del palacio cuando la multitud rompió las puertas.</p>
+          <p>El contraste era obsceno. El mármol y el oro brillaban bajo la luz de miles de velas, mientras afuera el barro se tragaba los gritos de los hambrientos. Me encontré frente a la puerta de los aposentos reales. Allí, custodiando el paso, estaba el Conde de Mirabeau.</p>
+          <div class="chapter-dialogue">—Cuidado, joven Moreau —me susurró Mirabeau, apoyado en su bastón—. Si entras allí con odio, solo encontrarás un espejo de tu propio vacío. El Rey es un hombre que solo quiere cazar y hacer cerraduras. No es un tirano, es un accidente de la historia.</div>
+          <p>Entramos. Luis XVI estaba sentado en un sillón, con el rostro inexpresivo, como si estuviera esperando que el mal sueño terminara. A su lado, María Antonieta mantenía la cabeza alta. Sus ojos, azules y gélidos, no mostraban miedo, sino un desprecio absoluto.</p>
+          <div class="chapter-dialogue">—Francia se está convirtiendo en un teatro de sombras —dijo ella con una dignidad que me heló la sangre—. Y ustedes son los que sostienen las antorchas que quemarán el escenario.</div>
+        </div>
+      </div>
+
+      <div class="fleur-sep">⚜ ⚜ ⚜</div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Capítulo IV</span>
+        <div class="chapter-title">Marat: El Veneno en la Bañera</div>
+        <div class="chapter-text">
+          <p>Para 1792, la Revolución había perdido su sonrisa. La guerra contra Austria y Prusia había vuelto a París paranoica. Mi trabajo me llevaba a menudo a los sótanos donde Jean-Paul Marat escribía "L'Ami du Peuple". El lugar olía a enfermedad y a tinta ácida. Marat, consumido por una afección de la piel, pasaba sus días en una bañera de cobre, con una toalla empapada en vinagre rodeándole la cabeza.</p>
+          <div class="chapter-dialogue">—¡Escribe esto, Moreau! —me gritaba, su pluma rascando el papel con violencia—. ¡Traidores en la Asamblea! ¡Traidores en el ejército! ¡Necesitamos la purga! ¡La libertad solo puede bautizarse con la sangre de trescientas mil cabezas!</div>
+          <div class="chapter-dialogue">—¿Y quién decidirá qué cabezas, Jean-Paul? —pregunté, sintiendo un escalofrío.</div>
+          <div class="chapter-dialogue">—¡El pueblo! ¡Y yo soy el oído del pueblo! —respondió con una carcajada ronca.</div>
+          <p>Marat era el ídolo de las secciones más radicales. Cuando Charlotte Corday lo apuñaló meses después, no mató a un hombre; creó un mártir. Vi su funeral, una procesión fúnebre que parecía el nacimiento de una religión oscura.</p>
+        </div>
+      </div>
+
+      <div class="fleur-sep">⚜ ⚜ ⚜</div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Capítulo V</span>
+        <div class="chapter-title">La Pureza Letal de Robespierre</div>
+        <div class="chapter-text">
+          <p>Tras la caída de la monarquía el 10 de agosto, el poder se concentró en un solo lugar: el Comité de Salvación Pública. Allí reinaba Maximilien Robespierre. Lo visité en la casa de la familia Duplay, un hogar sencillo donde "El Incorruptible" vivía como un monje. Su ropa estaba siempre impecable, su peluca perfectamente empolvada.</p>
+          <div class="chapter-dialogue">—Moreau —dijo Robespierre, fijando sus ojos azules detrás de sus gafas—. La virtud sin el terror es impotente. El terror sin la virtud es fatal. Francia está rodeada de lobos. No podemos permitirnos la debilidad del corazón.</div>
+          <div class="chapter-dialogue">—Pero, Maximilien, ¿dónde termina la purga? —pregunté—. Ayer fueron los aristócratas, hoy son los girondinos... ¿quiénes serán mañana?</div>
+          <div class="chapter-dialogue">—Mañana pertenecerá a los que sean lo suficientemente puros para habitarlo. La Revolución es como Saturno, Étienne. Devora a sus propios hijos si no son dignos de ella.</div>
+          <p>A su lado estaba Louis de Saint-Just, el joven "Ángel del Terror". Saint-Just no hablaba, simplemente firmaba sentencias de muerte con una elegancia que resultaba más aterradora que cualquier grito de Marat.</p>
+        </div>
+      </div>
+
+      <div class="fleur-sep">⚜ ⚜ ⚜</div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Capítulo VI</span>
+        <div class="chapter-title">El Adiós del Coloso</div>
+        <div class="chapter-text">
+          <p>En 1794, el Terror se volvió contra sus fundadores. Danton, el hombre que me había llevado al Café de Foy, fue arrestado. Su pecado fue sugerir que el río de sangre debía detenerse, que era hora de la clemencia. Visité a Danton en la prisión de la Conciergerie. Seguía siendo el mismo gigante, pero sus ojos estaban cansados.</p>
+          <div class="chapter-dialogue">—Étienne, amigo mío —dijo, riendo entre dientes—. Dile a Robespierre que el cadalso que ha construido para mí pronto será su propio lecho. No se puede gobernar a los hombres solo con la virtud de las estatuas. Los hombres necesitan vino, mujeres y pan, no solo discursos sobre la República.</div>
+          <p>Cuando subió a la carreta, gritó al verdugo: "¡No olvides mostrar mi cabeza al pueblo; vale la pena!". Yo lloré ese día. Con Danton murió el corazón de la Revolución; lo que quedó fue solo el cerebro frío y paranoico de Robespierre.</p>
+        </div>
+      </div>
+
+      <div class="fleur-sep">⚜ ⚜ ⚜</div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Capítulo VII</span>
+        <div class="chapter-title">Termidor y el Amanecer de los Cañones</div>
+        <div class="chapter-text">
+          <p>El 9 de Termidor fue el clímax de la fiebre. Fui testigo del caos en la Convención, donde Robespierre fue finalmente acusado de tiranía. Lo vi caer en el Hotel de Ville, con la mandíbula destrozada por un balazo, tirado sobre la misma mesa donde había dictado tantas sentencias.</p>
+          <p>Su ejecución marcó el fin del sueño. Pero el vacío de poder fue llenado pronto. Conocí a un joven general de artillería llamado Napoleón Bonaparte durante los días del Directorio.</p>
+          <div class="chapter-dialogue">—Moreau —me dijo Bonaparte mientras examinaba unos mapas estratégicos—. Los abogados han tenido su oportunidad y han convertido a Francia en un cementerio. Ahora es el turno de los soldados. El pueblo ya no quiere "Libertad", quiere gloria y orden. Y yo les daré ambas.</div>
+          <p>En sus ojos vi el fin de la Revolución y el nacimiento de un Imperio. Étienne Moreau, el impresor de los Cordeliers, ya no tenía lugar en ese nuevo mundo de uniformes y coronas.</p>
+        </div>
+      </div>
+
+      <div class="fleur-sep">⚜ ⚜ ⚜</div>
+
+      <div class="novela-chapter">
+        <span class="chapter-number">Epílogo</span>
+        <div class="chapter-title">Las Cenizas de París</div>
+        <div class="chapter-text">
+          <p>Hoy, París es una ciudad de monumentos y grandes avenidas. El olor de la sangre ha sido tapado por el de los perfumes de la corte imperial. A veces paso por la Plaza de la Revolución, ahora llamada de la Concordia, y siento el peso de los miles que pasaron bajo la cuchilla.</p>
+          <p>¿Valió la pena? No lo sé. Hemos derribado a un Rey para elevar a un Emperador. Hemos buscado la igualdad y encontrado la jerarquía del mérito. Pero cuando miro a los jóvenes en los cafés, todavía veo esa chispa, esa negativa a aceptar que el destino de un hombre deba estar decidido por su nacimiento.</p>
+          <p>París ardió, es cierto. Pero en el fuego, forjamos algo que el mundo nunca podrá olvidar. La idea de que somos ciudadanos, no súbditos. Y esa idea, Moreau lo sabe bien, es más resistente que cualquier trono de piedra.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ BANDA SONORA -->
+<section id="banda-sonora">
+  <div class="section-inner">
+    <div class="section-header fade-in">
+      <span class="section-eyebrow">Banda Sonora Original</span>
+      <h2 class="section-title">Voces de la Revolución</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">Diez canciones que narran la historia desde la voz de quienes la vivieron.</p>
+    </div>
+
+    <div class="soundtrack-player fade-in">
+      <div class="player-main">
+        <div class="player-now-playing">▶ Reproduciendo ahora</div>
+        <div class="player-track-title" id="player-title">Seda y Ceniza</div>
+        <div class="player-track-character" id="player-character">María Antonieta</div>
+
+        <div class="player-progress-wrap" id="progress-wrap">
+          <div class="player-progress-bg">
+            <div class="player-progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+        <div class="player-time">
+          <span id="time-current">0:00</span>
+          <span id="time-total">0:00</span>
+        </div>
+
+        <div class="player-controls">
+          <button class="ctrl-btn" id="btn-prev" title="Anterior">⏮</button>
+          <button class="ctrl-btn play-pause" id="btn-play" title="Play/Pausa">▶</button>
+          <button class="ctrl-btn" id="btn-next" title="Siguiente">⏭</button>
+          <div class="volume-wrap">
+            <span style="color:var(--blanc-dim); font-size:1rem;">🔊</span>
+            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="0.8">
+          </div>
+        </div>
+      </div>
+
+      <div class="track-list" id="track-list">
+        <!-- JS generated -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FOOTER -->
+<footer>
+  <div class="footer-logo">Revolución Francesa: Arde París</div>
+  <div class="footer-studio">Liberation Studios · Ubisoft Paris · 2025</div>
+  <div class="footer-badges">
+    <span class="footer-badge">PS5</span>
+    <span class="footer-badge">PEGI 18</span>
+    <span class="footer-badge">Ultra HD Blu-ray</span>
+    <span class="footer-badge">Dolby Atmos</span>
+    <span class="footer-badge">DTS Digital Surround</span>
+    <span class="footer-badge">USST7090709</span>
+  </div>
+  <div class="footer-legal">
+    © Liberation Studios. Todos los derechos reservados. Liberation Studios y su logotipo son marcas registradas de Liberation Studios. Publicado y distribuido por Ubisoft Entertainment. "PlayStation" y "PS5" son marcas registradas de Sony Interactive Entertainment Inc. Hecho en Austria. Todos los derechos reservados.
+  </div>
+</footer>
+
+<!-- ============================================================ JAVASCRIPT -->
+<script>
+// ================================================================
+// DATA
+// ================================================================
+
+const timelineData = [
+  { id: 1, year: "May 1789", name: "Estados Generales", acto: "Acto I", tipo: "Principal", fecha: "5 de mayo de 1789",
+    texto: "Francia en 1789 era un polvorín. La deuda de la corona era asfixiante tras décadas de guerras costosas. Luis XVI, caracterizado por su indecisión, convocó los Estados Generales, una asamblea que no se reunía desde 1614. La gran disputa estalló de inmediato por el sistema de votación: el Tercer Estado exigía el voto 'por cabeza', mientras la nobleza defendía el voto 'por estamento' para mantener su mayoría garantizada.",
+    mision: '"El Gran Debate" — Infiltrate en el Palacio de Versalles como escolta de Necker. Tu objetivo es escuchar las demandas del pueblo y asegurar que los delegados del Tercer Estado no sean silenciados por la guardia real.' },
+  { id: 2, year: "Jun 1789", name: "Juramento del Juego de Pelota", acto: "Acto I", tipo: "Principal", fecha: "20 de junio de 1789",
+    texto: "Bloqueados de su sala de reuniones por orden real, los diputados del Tercer Estado, liderados por Bailly y Mirabeau, se trasladaron a una cancha de jeu de paume. Allí juraron solemnemente 'no separarse jamás hasta que la Constitución del reino esté establecida'. Fue un desafío directo al derecho divino del Rey.",
+    mision: '"Unidos hasta el Final" — El Rey ha cerrado las puertas. Debes guiar a los diputados a través de las calles lluviosas de Versalles hasta la cancha de pelota y proteger el perímetro mientras firman el acta.' },
+  { id: 3, year: "Jul 1789", name: "Toma de la Bastilla", acto: "Acto I", tipo: "Principal", fecha: "14 de julio de 1789",
+    texto: "El despido de Necker fue interpretado como un golpe aristocrático. Miles de ciudadanos asaltaron la Bastilla para conseguir pólvora. El gobernador De Launay fue ejecutado y su cabeza paseada en una pica por las calles de París, marcando el inicio de la violencia revolucionaria.",
+    mision: '"Caída del Tirano" — ¡París ha despertado! Lidera a la muchedumbre hacia los muros de la Bastilla. Infiltrate por las almenas, libera a los prisioneros y asegura los depósitos de pólvora.' },
+  { id: 4, year: "Ago 1789", name: "Gran Miedo en el Campo", acto: "Acto I", tipo: "Secundaria", fecha: "Verano de 1789",
+    texto: "El rumor de un 'complot aristocrático' desató una histeria colectiva en las zonas rurales. Los campesinos atacaron castillos para destruir los 'terriers', libros de contabilidad donde se registraban sus deudas feudales. La Noche del 4 de agosto, los nobles renunciaron a sus privilegios para calmar las provincias.",
+    mision: '"Cenizas del Feudalismo" — Viaja a las afueras de París. Ayuda a los campesinos a recuperar las tierras que les pertenecen por derecho. Quema los archivos señoriales en el castillo de un noble corrupto.' },
+  { id: 5, year: "Ago 1789", name: "Declaración de Derechos del Hombre", acto: "Acto I", tipo: "Principal", fecha: "26 de agosto de 1789",
+    texto: "Inspirada en la Ilustración y la Declaración de Independencia de Estados Unidos, este documento estableció que 'los hombres nacen y permanecen libres e iguales en derechos'. Fue el acta de defunción del Antiguo Régimen, aunque excluyó a las mujeres y no abolió la esclavitud en las colonias.",
+    mision: '"Palabras de Libertad" — Escolta a La Fayette mientras presenta el borrador de la declaración. Varios asesinos realistas intentarán robar el documento original; elimínalos en los tejados de la ciudad.' },
+  { id: 6, year: "Oct 1789", name: "Marcha sobre Versalles", acto: "Acto I", tipo: "Principal", fecha: "5–6 de octubre de 1789",
+    texto: "Miles de mujeres marcharon 20 kilómetros bajo la lluvia hasta Versalles exigiendo pan. La familia real fue obligada a trasladarse a París, convirtiéndose virtualmente en prisioneros de la Revolución. Fue el momento en que la Revolución se volvió irreversible.",
+    mision: '"El Rugido de las Madres" — Acompaña a la multitud de mujeres bajo la lluvia torrencial hacia Versalles. Tu tarea es asegurar que entren al palacio y evitar que la Guardia Suiza abra fuego contra la población civil.' },
+  { id: 7, year: "Jun 1791", name: "Fuga de Varennes", acto: "Acto II", tipo: "Secundaria", fecha: "20–21 de junio de 1791",
+    texto: "Luis XVI intentó huir disfrazado de criado en una berlina pesada hacia la frontera austriaca. Fue reconocido en Varennes por el jefe de postas Jean-Baptiste Drouet, quien comparó su perfil con la efigie de un asignado. La 'Fuga de Varennes' destruyó el mito del 'Rey Padre' y dio origen al movimiento republicano radical.",
+    mision: '"Cacería Real" — Un carruaje sospechoso ha salido de París a medianoche. Persíguelo a caballo por los campos franceses. Identifica al Rey en la posta de Varennes y da la señal para detener la traición de la fuga.' },
+  { id: 8, year: "Abr 1792", name: "Guerra contra Austria", acto: "Acto II", tipo: "Principal", fecha: "20 de abril de 1792",
+    texto: "Los Girondinos impulsaron la guerra para unir a la nación. El Rey la apoyó esperando una derrota que restaurara su poder. Robespierre se opuso, temiendo una dictadura militar. Los primeros encuentros bélicos fueron desastrosos; las tropas se batían en retirada al primer contacto.",
+    mision: '"Fuego en la Frontera" — Los espías austriacos están saboteando los cuarteles de París. Localiza el nido de espionaje en el barrio de Le Marais y destruye sus planes de invasión.' },
+  { id: 9, year: "Ago 1792", name: "Asalto a las Tullerías", acto: "Acto II", tipo: "Principal", fecha: "10 de agosto de 1792",
+    texto: "El Manifiesto de Brunswick, que amenazaba con destruir París, enfureció a los parisinos. La Comuna Insurreccional asaltó el palacio. Fue el día más sangriento de la Revolución en París: casi toda la Guardia Suiza fue masacrada. La monarquía francesa, con más de mil años de historia, cayó en una sola mañana.",
+    mision: '"El Fin de la Corona" — Es el asalto final a las Tullerías. El palacio es una fortaleza; lidera el ataque de los Sans-culottes, derrota a la Guardia Suiza en combate visceral y captura los tesoros ocultos de la monarquía.' },
+  { id: 10, year: "Sep 1792", name: "Masacres de Septiembre", acto: "Acto II", tipo: "Secundaria", fecha: "2–6 de septiembre de 1792",
+    texto: "Con el ejército prusiano a días de París, el pánico desató las masacres. Bandas de ciudadanos entraron en las prisiones y ejecutaron a más de 1.100 personas en juicios sumarios improvisados. Las autoridades, incluidos Danton y Roland, no hicieron nada por detenerlas.",
+    mision: '"Justicia Ciega" — La paranoia se ha apoderado de las calles. Debes decidir: ¿ayudas a Marat a señalar a los supuestos traidores en las prisiones o intentas salvar a inocentes de ser arrastrados a la guillotina?' },
+  { id: 11, year: "Ene 1793", name: "Ejecución de Luis XVI", acto: "Acto III", tipo: "Principal", fecha: "21 de enero de 1793",
+    texto: "El hallazgo del 'Armario de Hierro' probó la correspondencia secreta del Rey con potencias enemigas. La sentencia de muerte fue aprobada por estrecho margen. El general Santerre ordenó un redoble de tambores para ahogar las últimas palabras del Rey. La ejecución marcó el punto de no retorno para Francia.",
+    mision: '"Sangre de Reyes" — La plaza está abarrotada para la ejecución. Hay rumores de un intento de rescate realista. Vigila desde las sombras y elimina a los tiradores que intentan salvar al Rey antes de que caiga la cuchilla.' },
+  { id: 12, year: "Abr 1793", name: "Comité de Salvación Pública", acto: "Acto III", tipo: "Principal", fecha: "Abril de 1793",
+    texto: "Con rebeliones internas y toda Europa en guerra contra Francia, la Convención creó un órgano ejecutivo de poderes casi dictatoriales. Bajo Robespierre, el Comité se convirtió en el motor del Terror. Su filosofía: 'la virtud para los ciudadanos, el terror para los enemigos de la libertad'.",
+    mision: '"Vigilancia Revolucionaria" — Robespierre te ha encomendado limpiar la ciudad de conspiradores. Investiga las tabernas de París, intercepta cartas cifradas y entrega los nombres de los traidores al Comité.' },
+  { id: 13, year: "Jul 1793", name: "Asesinato de Marat", acto: "Acto III", tipo: "Secundaria", fecha: "13 de julio de 1793",
+    texto: "Charlotte Corday, convencida de que Marat era el monstruo responsable de la radicalización, viajó desde Caen con un cuchillo. Lo apuñaló en su bañera de cobre. Su muerte no trajo la paz, sino que convirtió a Marat en el mártir supremo de la Revolución y aceleró el Gran Terror.",
+    mision: '"El Ángel del Asesinato" — Una mujer extraña busca audiencia con Marat. Síguela a través de París; llega antes de que la turba linche a Charlotte Corday para descubrir quién la envió realmente.' },
+  { id: 14, year: "Jun 1793", name: "Caída de los Girondinos", acto: "Acto III", tipo: "Principal", fecha: "2 de junio de 1793",
+    texto: "80.000 ciudadanos armados rodearon la Convención Nacional con cañones. El comandante Hanriot gritó a los diputados: '¡Volved a vuestros puestos! ¡Artilleros, a vuestras piezas!'. Fue la primera vez que la fuerza militar dictó directamente la composición del gobierno legal de Francia.",
+    mision: '"Purga en la Convención" — Rodea el edificio legislativo con los cañones de la Guardia Nacional. Debes intimidar a los diputados para que entreguen a los girondinos moderados. No dejes que nadie escape por las puertas traseras.' },
+  { id: 15, year: "Jun 1794", name: "Festival del Ser Supremo", acto: "Acto III", tipo: "Secundaria", fecha: "8 de junio de 1794",
+    texto: "Robespierre instauró el Culto al Ser Supremo para dar a la República una base moral deísta. El festival, diseñado por el pintor David, mostró a Robespierre descendiendo de una montaña artificial vestido de azul celeste. Sus colegas lo observaban con una mezcla de burla y terror, convencidos de que se creía un nuevo mesías.",
+    mision: '"La Utopía de Robespierre" — Mientras Robespierre preside el Festival del Ser Supremo, infiltrate en su despacho privado para buscar pruebas de que su locura y sus listas de ejecución no tienen fin.' },
+  { id: 16, year: "1793-94", name: "El Reinado del Terror", acto: "Acto IV", tipo: "Principal", fecha: "1793–1794",
+    texto: "La Ley de Pradial eliminó el derecho a defensa: los juicios solo podían terminar en absolución o muerte. Las ejecuciones se organizaban en 'hornadas' de hasta 60 personas diarias. El miedo era absoluto: los vecinos se denunciaban entre sí, y el simple hecho de no usar el término 'Citoyen' podía llevarte al cadalso.",
+    mision: '"Sombras del Terror" — La ciudad es un cementerio vivo. Ayuda a un grupo de familias perseguidas a escapar de París a través de las catacumbas antes de que sus nombres aparezcan en la lista de ejecuciones de la mañana.' },
+  { id: 17, year: "Jul 1794", name: "Caída de Robespierre", acto: "Acto IV", tipo: "Principal", fecha: "27–28 de julio de 1794",
+    texto: "Los enemigos de Robespierre se unieron por instinto de supervivencia. Fue acallado en la Convención con gritos de '¡Abajo el tirano!'. Se refugió en el Hotel de Ville, donde una bala destrozó su mandíbula. Al día siguiente, 22 líderes jacobinos fueron guillotinados sin juicio previo. El Terror había terminado.",
+    mision: '"El Cazador Cazado" — ¡Asalta el Hotel de Ville! Robespierre y sus últimos leales están atrincherados. Ábrete paso entre los defensores y pon fin a la tiranía del "Incorruptible" en una noche de caos y pólvora.' },
+  { id: 18, year: "1795", name: "Terror Blanco", acto: "Acto IV", tipo: "Secundaria", fecha: "1795",
+    texto: "La Juventud Dorada (Muscadins), jóvenes burgueses que vestían de forma extravagante para burlarse de la austeridad revolucionaria, lanzaron una campaña de venganza sangrienta contra los antiguos jacobinos. Armados con garrotes de plomo, patrullaban los barrios populares atacando a cualquiera que pareciera simpatizante de Robespierre.",
+    mision: '"Venganza de Seda" — Los roles se han invertido. Protege a un antiguo oficial jacobino de los ataques de la "Juventud Dorada" (Muscadins), quienes buscan venganza sangrienta en los callejones.' },
+  { id: 19, year: "1796-97", name: "Campañas de Italia", acto: "Acto IV", tipo: "Principal", fecha: "1796–1797",
+    texto: "Napoleón Bonaparte, con 26 años, recibió el mando de un ejército desmoralizado. En la batalla del Puente de Arcole, tomó una bandera y cargó personalmente hacia el puente bajo fuego enemigo, cayendo al barro pero sobreviviendo. Fue el nacimiento del mito de 'El Pequeño Cabo'.",
+    mision: '"El Ascenso del Águila" — Viaja al frente italiano como enlace de París. Ayuda al joven general Napoleón Bonaparte a ganar la batalla del Puente de Arcole protegiendo su flanco de una carga de caballería desesperada.' },
+  { id: 20, year: "Nov 1799", name: "Golpe de 18 de Brumario", acto: "Acto IV", tipo: "Principal", fecha: "9 de noviembre de 1799",
+    texto: "El Directorio era sinónimo de corrupción. Napoleón, recién llegado de Egipto, fue visto como el salvador. El golpe casi fracasó por los nervios de Napoleón ante los diputados. Su hermano Lucien salvó la situación. Esa noche, Napoleón fue nombrado Primer Cónsul. La Revolución había terminado; el Imperio comenzaba.",
+    mision: '"El Nuevo Orden" — El Directorio ha fallado. Escolta a Napoleón al Consejo de los Quinientos durante el golpe de estado. Cuando los diputados lo ataquen, desenvaina tu acero y asegura el salón para el nuevo Cónsul.' }
+];
+
+const misionesData = [
+  { acto: "I", actoTitle: "El Despertar del Artesano", misiones: [
+    { num: "01", tipo: "principal", name: "El Gran Debate", misionName: "Estados Generales", desc: "Infiltrate en el Palacio de Versalles como escolta de Necker. Tu objetivo es escuchar las demandas del pueblo y asegurar que los delegados del Tercer Estado no sean silenciados por la guardia real. Muévete por los sótanos del palacio y usa tus herramientas de artesano para abrir conductos de ventilación.", consejo: "Usa el disfraz de sirviente; los guardias ignoran a los que llevan bandejas. Los Cahiers de Doléances robados están en el despacho del Conde de Artois." },
+    { num: "02", tipo: "principal", name: "Unidos hasta el Final", misionName: "Juramento del Juego de Pelota", desc: "El Rey ha cerrado las puertas. Debes guiar a los diputados a través de las calles lluviosas de Versalles hasta la cancha de pelota y proteger el perímetro mientras firman el acta que cambiará el destino del país. Bloquea las entradas con barricadas improvisadas.", consejo: "Bloquea primero la puerta lateral izquierda. Si la salud de Bailly cae al 40%, usa la Bomba de Humo para despejarlo." },
+    { num: "03", tipo: "principal", name: "Caída del Tirano", misionName: "Toma de la Bastilla", desc: "¡París ha despertado! Lidera a la muchedumbre hacia los muros de la Bastilla. Infiltrate por las almenas, libera a los prisioneros y asegura los depósitos de pólvora antes de que los cañones destruyan el barrio de Saint-Antoine.", consejo: "Escala por las enredaderas del foso oeste. Los 4 cañones del este explotan en cadena si apuntas al barril central." },
+    { num: "04", tipo: "secundaria", name: "Cenizas del Feudalismo", misionName: "El Gran Miedo", desc: "Viaja a las afueras de París. Ayuda a los campesinos a recuperar las tierras que les pertenecen por derecho. Quema los archivos señoriales en el castillo de un noble corrupto sin que te detecten sus guardias privados.", consejo: "Las flechas de fuego destruyen los archivos desde lejos sin comprometer tu posición. La cámara acorazada está en la torre norte, no en la torre principal." },
+    { num: "05", tipo: "principal", name: "Palabras de Libertad", misionName: "Declaración de Derechos", desc: "Escolta a La Fayette mientras presenta el borrador de la declaración. Varios asesinos realistas intentarán robar el documento original; elimínalos en los tejados de la ciudad antes de que la noticia se pierda.", consejo: "Protege solo las prensas 1 y 3; la prensa 2 es un señuelo. El mensajero huye por los tejados de Saint-Germain." }
+  ]},
+  { acto: "II", actoTitle: "La Corona Vacilante", misiones: [
+    { num: "06", tipo: "principal", name: "El Rugido de las Madres", misionName: "Marcha sobre Versalles", desc: "Acompaña a la multitud de mujeres bajo la lluvia torrencial hacia Versalles. Tu tarea es asegurar que entren al palacio y evitar que la Guardia Suiza abra fuego contra la población civil mientras exigen pan. Guía al Rey de vuelta a París.", consejo: "Los agentes provocadores se infiltran por el flanco derecho. El pasadizo de María Antonieta está detrás del espejo del salón azul, segundo piso." },
+    { num: "07", tipo: "secundaria", name: "Cacería Real", misionName: "Fuga de Varennes", desc: "Un carruaje sospechoso ha salido de París a medianoche. Persíguelo a caballo por los campos franceses. Identifica al Rey en la posta de Varennes y da la señal a las autoridades locales para detener la traición de la fuga.", consejo: "Usa el silbato para atraer los caballos de los guardias. Los destacamentos de húsares esperan al Rey en tres puntos del camino." },
+    { num: "08", tipo: "principal", name: "Fuego en la Frontera", misionName: "Guerra contra Austria", desc: "Los espías austriacos están saboteando los cuarteles de París. Localiza el nido de espionaje en el barrio de Le Marais y destruye sus planes de invasión antes de que el ejército francés marche al frente.", consejo: "Los barriles rojos explotan en cadena. No uses armas de fuego dentro de la fábrica: el ruido alerta a las patrullas exteriores." },
+    { num: "09", tipo: "principal", name: "El Fin de la Corona", misionName: "Asalto a las Tullerías", desc: "Es el asalto final a las Tullerías. El palacio es una fortaleza; lidera el ataque de los Sans-culottes, derrota a la Guardia Suiza en combate visceral y captura los tesoros ocultos de la monarquía para financiar la guerra.", consejo: "Captura los cañones del patio exterior antes de atacar las puertas. El Comandante Suizo siempre finta dos veces antes del golpe real." },
+    { num: "10", tipo: "secundaria", name: "Justicia Ciega", misionName: "Masacres de Septiembre", desc: "La paranoia se ha apoderado de las calles. Debes decidir: ¿ayudas a Marat a señalar a los supuestos traidores en las prisiones o intentas salvar a inocentes que están siendo arrastrados a la guillotina en medio del caos?", consejo: "La decisión moral aquí afecta qué personajes te apoyan en el Acto IV. Ayudar a inocentes desbloquea el apoyo de Lafayette." }
+  ]},
+  { acto: "III", actoTitle: "El Reinado del Terror", misiones: [
+    { num: "11", tipo: "principal", name: "Sangre de Reyes", misionName: "Ejecución de Luis XVI", desc: "La plaza está abarrotada para la ejecución de Luis XVI. Hay rumores de un intento de rescate realista. Vigila desde las sombras y elimina a los tiradores que intentan salvar al Rey antes de que caiga la cuchilla.", consejo: "Los francotiradores están en 3 azoteas: relojero (derecha), campanario Saint-Roch y terraza del café Procope. Elimínalos en ese orden." },
+    { num: "12", tipo: "principal", name: "Vigilancia Revolucionaria", misionName: "Comité de Salvación Pública", desc: "Robespierre te ha encomendado limpiar la ciudad de conspiradores. Investiga las tabernas de París, intercepta cartas cifradas y entrega los nombres de los traidores al Comité de Salvación Pública.", consejo: "Usa la habilidad 'Oído de Artesano' para escuchar a través de las paredes de madera. Las cartas cifradas están en tres ubicaciones distintas." },
+    { num: "13", tipo: "secundaria", name: "El Ángel del Asesinato", misionName: "Asesinato de Marat", desc: "Una mujer extraña busca audiencia con Marat. Síguela a través de París; llega antes de que la turba linche a Charlotte Corday para descubrir quién la envió realmente.", consejo: "El gancho de agarre permite balancearse entre chimeneas para ganar ventaja de altura. Charlotte Corday pasa por el Palais-Royal antes de dirigirse a la Rue de l'École." },
+    { num: "14", tipo: "principal", name: "Purga en la Convención", misionName: "Caída de los Girondinos", desc: "Rodea el edificio legislativo con los cañones de la Guardia Nacional. Debes intimidar a los diputados para que entreguen a los girondinos moderados. No dejes que nadie escape por las puertas traseras.", consejo: "Sabotear los cañones los dejará inservibles para Hanriot, lo que permite a algunos diputados escapar. Decide: ¿sigues las órdenes o abres una grieta en el Terror?" },
+    { num: "15", tipo: "secundaria", name: "La Utopía de Robespierre", misionName: "Festival del Ser Supremo", desc: "Mientras Robespierre preside el Festival del Ser Supremo, infiltrate en su despacho privado para buscar pruebas de que su locura y sus listas de ejecución no tienen fin.", consejo: "Sigue el ritmo de la música; los guardias están distraídos por los coros. Tienes 10 minutos antes de que regrese Robespierre al interior." }
+  ]},
+  { acto: "IV", actoTitle: "El Camino al Imperio", misiones: [
+    { num: "16", tipo: "principal", name: "Sombras del Terror", misionName: "El Reinado del Terror", desc: "La ciudad es un cementerio vivo. Ayuda a un grupo de familias perseguidas a escapar de París a través de las catacumbas antes de que sus nombres aparezcan en la lista de ejecuciones de la mañana.", consejo: "El motín falso se activa con una antorcha en el patio sur. Las cloacas de salida están en el nivel B2, no en el B1 donde los guardias esperan." },
+    { num: "17", tipo: "principal", name: "El Cazador Cazado", misionName: "Caída de Robespierre", desc: "¡Asalta el Hotel de Ville! Robespierre y sus últimos leales están atrincherados. Ábrete paso entre los defensores y pon fin a la tiranía del 'Incorruptible' en una noche de caos y pólvora.", consejo: "Saint-Just: bloquea sus primeros tres ataques sin contraatacar; el cuarto siempre es su punto débil. Las bombas de destello son esenciales en salas con más de 3 guardias." },
+    { num: "18", tipo: "secundaria", name: "Venganza de Seda", misionName: "Terror Blanco", desc: "Los roles se han invertido. Protege a un antiguo oficial jacobino de los ataques de la 'Juventud Dorada' (Muscadins), quienes buscan venganza sangrienta en los callejones.", consejo: "Los Muscadins son rápidos pero débiles; usa ataques pesados para romper su defensa. Usa el entorno del mercado para tenderles emboscadas." },
+    { num: "19", tipo: "principal", name: "El Ascenso del Águila", misionName: "Campañas de Italia", desc: "Viaja al frente italiano como enlace de París. Ayuda al joven general Napoleón Bonaparte a ganar la batalla del Puente de Arcole protegiendo su flanco de una carga de caballería desesperada.", consejo: "Flanquea los austriacos por los pantanos del este. El mapa estratégico del general austriaco está en la tienda norte, custodiado solo en el turno del amanecer." },
+    { num: "20", tipo: "principal", name: "El Nuevo Orden", misionName: "Golpe de 18 de Brumario", desc: "El Directorio ha fallado. Escolta a Napoleón al Consejo de los Quinientos durante el golpe de estado. Cuando los diputados lo ataquen, desenvaina tu acero y asegura el salón para el nuevo Cónsul.", consejo: "Convencer a los 3 guardias requiere el Anillo de Sello del Comité (misión 12). Barras firma si le muestras las pruebas de corrupción del Directorio (misión 18)." }
+  ]}
+];
+
+const tracksData = [
+  { num: "01", title: "Seda y Ceniza", character: "María Antonieta", file: "audio/01_Seda_y_Ceniza_-_Maria_Antonieta.mp3",
+    lyrics: `Seda y Ceniza - María Antonieta
+
+Bienvenidos a Versalles, mi parque de cristal,
+donde el brillo de mi corte es un sueño irracional.
+¿Mi collar? Un escándalo, puro cuento de salón,
+mientras Luis está en la forja buscando su dirección.
+Me llaman "Madame Déficit" con tono de desprecio,
+sin saber que ser la Reina siempre tiene un alto precio.
+
+¿Dicen que no hay pan? ¡Qué drama, por favor!
+Si les falta la harina, les traigo algo mejor.
+"Que coman pasteles", dicen que yo grité,
+un fake news histórico que nunca me quité.
+Escuchen, chicos, el presupuesto no cuadraba,
+mientras Lafayette en el jardín siempre me vigilaba.
+No es mi culpa que el diamante sea mi mejor amigo,
+¡mientras Robespierre ya sueña con mi castigo!
+
+Seda en la cuna, ceniza en el altar,
+la historia es el fuego que me va a devorar.
+Del Trianón al Temple, el blanco es mi color,
+mi cuello se rinde... ¡pero nunca mi honor!
+¡Honor! ¡Honor! En el momento final,
+un icono caído en un juicio moral.
+
+Las pescaderas marchan, el barro en el salón,
+el sueño de las flores se volvió una rebelión.
+Varennes fue la trampa, la moneda nos vendió,
+y el rostro de mi esposo por fin se oscureció.
+Oigo a Olympe escribiendo desde su soledad,
+mientras Robespierre afila su fría "igualdad".
+
+Me cortaron el pelo, me quitaron la piel,
+la "Loba Austriaca" bebió de su propia hiel.
+No hay joyas, no hay bailes, solo el frío del metal,
+esperando el veredicto de este baile terminal.
+
+Subo al carruaje con la frente muy alta,
+ya no siento el miedo, ya nada me falta.
+"Perdóneme, señor", le dije al verdugo,
+Francia se libera por fin de mi yugo.
+Fui la seda del mundo, ahora soy su ceniza,
+viviendo para siempre en mi eterna sonrisa.
+
+Seda en la cuna, ceniza en el altar,
+la historia es el fuego que me va a devorar.
+Del Trianón al Temple, el blanco es mi color,
+mi cuello se rinde... ¡pero nunca mi honor!
+¡Honor! ¡Honor! En el momento final,
+un icono caído en un juicio moral.` },
+  { num: "02", title: "El Silencio de los Tambores", character: "Luis XVI", file: "audio/02_El_Silencio_de_los_Tambores_-_Luis_XVI.mp3",
+    lyrics: `El Silencio de los Tambores - Luis XVI
+
+"Ríen"... puse en mi diario mientras el mundo ardía,
+buscando en mis cerrojos la paz que no tenía.
+Prefiero el frío del hierro, el ajuste de un muelle,
+antes que el grito del pueblo que el honor me muelle.
+Soy el eco de un trono que nunca quise ocupar,
+una sombra cobarde que no sabe navegar.
+Perdóname, Seda, por mi eterno dudar,
+mientras el mapa de Francia se empieza a quebrar.
+
+Me escondo en la caza, en el bosque, en el rastro,
+huyendo del brillo de este sol que es mi rastro.
+Varennes fue el miedo disfrazado de huida,
+una frontera amarga para una fe perdida.
+La asamblea ruge, las sombras se ensanchan,
+mientras mis dudas mis manos manchan.
+Soy el rey de cristal en un mundo de roca,
+con la palabra muerta siempre en la boca.
+
+¡Que rujan los tambores, que callen mi voz!
+El juicio del hombre no es el de Dios.
+Un hilo de acero divide mi historia,
+borrando la sangre, quemando la gloria.
+El silencio es mío, el ruido es de ellos,
+caen las cabezas... crujen los cuellos.
+
+Subo la escalera... el mundo es un ruido,
+un rey sin corona, un hombre vencido.
+Santerre, da la orden... haz el redoble.
+Que mi último aliento no parezca noble.
+
+Perdono a la mano que sujeta el metal,
+en este baile frío de corte final.
+Ya no hay relojes que pueda ajustar,
+solo este silencio que me va a devorar.` },
+  { num: "03", title: "La Virtud del Acero", character: "Maximilien Robespierre", file: "audio/03_La_Virtud_del_Acero_-_Maximilien_Robespierre.mp3",
+    lyrics: `La Virtud del Acero - Maximilien Robespierre
+
+Ni necio ni mancha, solo la razón,
+el Terror es la cura para la traición.
+El Comité vigila, el ojo no parpadea,
+la República es pura, o que no sea.
+Purgo las calles con un frío pincel,
+escribiendo el mañana sobre el papel.
+Soy "El Incorruptible", la voz del deber,
+que no busca el oro, sino el renacer.
+
+Luis perdió el trono y su Reina el honor,
+mientras Lafayette huía con su falso valor.
+Danton, mi amigo, te venció el placer,
+tu audacia no pudo contra mi deber.
+Y tú, Camille, periodista febril,
+tu pluma se apaga frente a mi perfil.
+No hay amigos cuando la patria reclama,
+solo queda el hierro y su fría llama.
+
+¡Libertad! ¡Igualdad! ¡O la muerte total!
+El Terror es la escala del orden moral.
+La guillotina es mi pluma, el veredicto es ley,
+no hay sitio para el traidor, ni para el Rey.
+Virtud y acero en un solo crisol,
+limpiando la tierra bajo el mismo sol.
+
+Thermidor llega con un grito de guerra,
+la traición se levanta y la puerta se cierra.
+Mi mandíbula rota ya no puede hablar,
+la hoja que alcé me vendrá a buscar.
+Muero en silencio, sin un solo lamento,
+siendo el motor de este gran movimiento.` },
+  { num: "04", title: "El Rugido de la Calle", character: "Georges Danton", file: "audio/04_El_Rugido_de_la_Calle_-_Georges_Danton.mp3",
+    lyrics: `El Rugido de la Calle - Georges Danton
+
+Mi voz es el trueno que incendió el Champ de Mars,
+traigo el fuego en las venas para romper las barras.
+Cordeliers en el puño, la calle es mi hogar,
+soy el hombre que al pueblo enseñó a caminar.
+No soy un santo de mármol ni de frío altar,
+prefiero la vida, el vino y luchar.
+
+¡Audacia, más audacia, y siempre audacia!
+Mi grito es el trueno que rompe la falacia.
+La calle me sigue, no conoce el temor,
+¡Muestra mi cabeza al pueblo, su orador!
+¡Vale la pena este cierre triunfal!
+
+Maximiliano, tu aliento es de hielo,
+quieres el cielo pero pisas el suelo.
+Me juzgas con leyes que yo mismo creé,
+pero mi nombre en la historia se mantendrá en pie.
+¿Justicia o venganza? El Tribunal decidirá,
+pero el pueblo recuerda quién le dio la libertad.
+
+Camille, amigo mío, no llores por la suerte,
+enfrentemos con risas la cara de la muerte.
+Robespierre, te espero en este mismo lugar,
+el cadalso no sabe a quién debe perdonar.
+¡Ea, verdugo! No tengas piedad,
+que mi rostro sea el sello de la posteridad.` },
+  { num: "05", title: "Crónicas desde el Agua", character: "Jean-Paul Marat", file: "audio/05_Crónicas_desde_el_Agua_-_Jean-Paul_Marat.mp3",
+    lyrics: `Crónicas desde el Agua - Jean-Paul Marat
+
+El Amigo del Pueblo escribe en el baño.
+Mi piel arde viva por el desengaño.
+El azufre y el agua calman mi dolor,
+mientras dicto sentencias con rabia y furor.
+En las cloacas negras busqué mi guarida,
+donde la peste marcó mi piel carcomida.
+La conspiración es la luz de mi vela,
+porque el odio es el fuego que me condena.
+
+"¡Más cabezas!" gritaba mi pluma febril,
+para salvar la patria de un destino vil.
+Los Girondinos conspiran en la oscuridad,
+no hay tregua posible en esta tempestad.
+
+Sangre en el agua, paz en la herida.
+Una joven toca a la puerta prohibida.
+La pluma se rompe, el diario se cierra,
+y mi voz se disuelve en mi triste bañera.
+
+Un papel en mi mano, un puñal en mi pecho,
+el mártir del pueblo ya tiene su lecho.
+David me pintará en mi última hora,
+la pluma y el hierro, la muerte me adora.
+Mi cuerpo se enfría, la tinta se asienta,
+dejo una Francia que aún se atormenta.` },
+  { num: "06", title: "El Ángel del Puñal", character: "Charlotte Corday", file: "audio/06_El_Ángel_del_Puñal_-_Charlotte_Corday.mp3",
+    lyrics: `El Ángel del Puñal - Charlotte Corday
+
+De las tierras de Caen bajo un cielo de luz,
+cargué con mi patria, cargué con su cruz.
+Mientras él pide sangre en su trono de tina,
+yo traigo el acero que su odio termina.
+No soy un monstruo que acecha en la sombra,
+soy el castigo que el tirano no nombra.
+
+No soy asesina, soy la libertad.
+Un golpe certero a la oscuridad.
+Si su pluma se rompe, mi honor se levanta,
+la paz es el himno que hoy mi alma canta.
+Maté a uno solo para salvar a mil,
+mi nombre es el eco de un acto civil.
+
+Entré con engaños, su lista miré,
+nombres de amigos que yo protegeré.
+El puñal escondido bajo mi pañuelo,
+fue el rayo que trajo el descanso del cielo.
+
+Un rayo de sol en el último instante,
+ante la cuchilla me mantengo constante.
+Marat ya no escribe, su odio terminó,
+la herida de Francia mi mano cerró.
+Subo al cadalso con paso valiente,
+mi nombre es el trueno que escucha el presente.` },
+  { num: "07", title: "Héroe de Dos Mundos", character: "El Marqués de Lafayette", file: "audio/07_Héroe_de_Dos_Mundos_-_El_Marqués_de_Lafayette.mp3",
+    lyrics: `Héroe de Dos Mundos - El Marqués de Lafayette
+
+Del nuevo mundo traje el fuego y la fe,
+a la sombra de Washington mi destino forjé.
+Regresé a una Francia que clamaba comer,
+buscando el equilibrio entre el rey y la ley.
+La Guardia Nacional luce mi escarapela,
+el sueño de una ley que la historia tutela.
+Entre el Rey y el Pueblo quise ser el puente,
+un heraldo del orden en un mar de muerte.
+
+Protegí a la Reina en la noche de octubre,
+mientras el miedo al palacio lo cubre.
+Pero el Champ de Mars manchó mi bandera,
+cuando el orden que impuse sucumbió a la violencia.
+Luis no me escuchó, la razón lo dejó,
+y el radicalismo mi nombre borró.
+Soy traidor para el noble y para el radical,
+un náufrago herido en este juicio moral.
+
+pero el centro no aguanta,
+cuando el mundo se parte.
+Entre el rey y la turba,
+no hay lugar que lo aguante.
+Intenté ser el puente,
+la ley y la paz.
+Pero el fuego jacobino me dejó atrás.
+
+Cruzo la frontera hacia el frío exilio,
+lejos de un reino que no halló mi auxilio.
+Fui la chispa primera, el marqués ciudadano,
+que soñó con la ley en un mundo humano.
+Aunque caiga mi nombre en la fosa del tiempo,
+mi bandera tricolor aún respira en el viento.` },
+  { num: "08", title: "La Declaración Olvidada", character: "Olympe de Gouges", file: "audio/08_La_Declaración_Olvidada_-_Olympe_de_Gouges.mp3",
+    lyrics: `La Declaración Olvidada - Olympe de Gouges
+
+Alcé la pluma por el género silenciado,
+reclamé el derecho que nos fue negado.
+Si la ley nos juzga frente a la ejecución,
+queremos la voz en cada votación.
+No hay libertad si nos dejan atrás,
+en esta historia somos mucho más.
+
+Defendí a María cuando nadie se atrevió,
+Maximiliano, tu virtud nos traicionó.
+Al filo del miedo construyes tu ley,
+juzgando a la madre igual que al rey.
+Por pedir la paz me llaman conspiradora,
+mientras la muerte a Francia hoy condecora.
+
+¡Mujer, despierta! El destino nos llama,
+somos el fuego la historia proclama.
+Aunque la guillotina me quite el aliento,
+mi rastro se queda grabado en el viento.
+Si falta justicia, no habrá libertad,
+mi nombre es el grito a la posteridad.
+
+Subo los peldaños, no bajo la mirada,
+mi pluma es eterna, no será quebrada.
+Dejamos los hijos por una esperanza,
+la historia inclina por fin la balanza.
+Si muero mañana por ser ciudadana,
+mi voz será el eco de cada mañana.` },
+  { num: "09", title: "La Chispa del Café", character: "Camille Desmoulins", file: "audio/09_La_Chispa_del_Café_-_Camille_Desmoulins.mp3",
+    lyrics: `La Chispa del Café - Camille Desmoulins
+
+¡A las armas! grité sobre aquella mesa,
+una hoja de castaño es mi única promesa.
+El Palais-Royal ardió con mi voz,
+la Bastilla cayó, el cambio fue veloz.
+Escribo verdades que queman la piel,
+mi pluma es más dulce y amarga que la hiel.
+Soy el periodista de la libertad,
+buscando justicia en esta tempestad.
+
+¡A las armas, ciudadanos, no hay marcha atrás!
+La Bastilla cae, no habrá nunca paz.
+Somos la mecha, el fuego y la fe,
+la historia se escribe en una mesa de café.
+¡Que retumbe el grito de la rebelión,
+somos los hijos de la revolución!
+
+Robespierre, amigo, jugamos desde niños,
+hoy nos miras a todos con ojos de armiño.
+El "Viejo Cordelero" pide clemencia ya,
+pero el Comité no conoce la piedad.
+Danton me sostiene, su risa es mi escudo,
+ante un futuro que se vuelve mudo.
+
+Lucile, mi vida, ya escucho el tambor,
+muero por el sueño, muero por tu amor.
+No me arrepiento de la chispa que encendí,
+aunque este sistema se olvide de mí.
+¡Mírenme a los ojos, no voy a temblar,
+mi pluma es el fuego que no van a apagar!` },
+  { num: "10", title: "El Ascenso del Águila", character: "Napoleón Bonaparte", file: "audio/10_El_Ascenso_del_Águila_-_Napoleón_Bonaparte.mp3",
+    lyrics: `El Ascenso del Águila - Napoleón Bonaparte
+
+Del centro de Córcega al fuego de Toulon,
+vi el fin de los borbones, perdidos sin razón.
+La seda de Antonieta se hizo solo ceniza,
+mientras yo en la batalla forjaba mi dinastía.
+El caos de la calle pedía una dirección,
+y yo puse el cañón al servicio de la nación.
+
+El Directorio tiembla, corrupto y sin valor,
+cinco cabezas, sin brillo sin honor.
+El puente de Lafayette se hundió bajo el mar,
+mientras yo por conquistas, camino a gobernar.
+Dieciocho de Brumario, el sable fue la ley,
+ni asamblea, ni ruego, ni rastro de un rey.
+
+¡Yo soy la corona, soy la voluntad!
+El orden que surge de la tempestad.
+El Águila vuela, el tiempo se detuvo,
+yo soy el imperio que a Francia sostuvo.
+¡Yo soy la corona, soy la nación!
+De las cenizas surge mi propia ambición.
+El orden ha vuelto, el caos terminó,
+la Revolución en mi puño se cumplió.
+
+Lo que ellos destruyeron, yo lo vine a salvar,
+con el peso del hierro yo llegué a gobernar.
+Mi Código es la roca, mi mando es el destino,
+desde el sol de Egipto hasta el hielo alpino.
+No hay vuelta al pasado, el mundo me obedece,
+el nombre Bonaparte en la gloria amanece.` }
+];
+
+// ================================================================
+// EMBERS
+// ================================================================
+function createEmbers() {
+  const container = document.getElementById('embers');
+  if (!container) return;
+  for (let i = 0; i < 20; i++) {
+    const ember = document.createElement('div');
+    ember.className = 'ember';
+    ember.style.cssText = `
+      left: ${Math.random() * 100}%;
+      bottom: ${Math.random() * 30}%;
+      animation-duration: ${4 + Math.random() * 6}s;
+      animation-delay: ${Math.random() * 8}s;
+      --drift: ${(Math.random() - 0.5) * 100}px;
+      width: ${1 + Math.random() * 3}px;
+      height: ${1 + Math.random() * 3}px;
+    `;
+    container.appendChild(ember);
+  }
+}
+
+// ================================================================
+// NAVIGATION
+// ================================================================
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('nav-mobile');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navMobile.classList.toggle('open');
+});
+
+function closeMobileMenu() {
+  hamburger.classList.remove('open');
+  navMobile.classList.remove('open');
+}
+
+// ================================================================
+// TIMELINE
+// ================================================================
+function buildTimeline() {
+  const track = document.getElementById('timeline-track');
+  track.innerHTML = timelineData.map((e, i) => `
+    <div class="timeline-item" data-id="${i}" onclick="showTimelineDetail(${i})">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">${e.year}</div>
+      <div class="timeline-name">${e.name}</div>
+    </div>
+  `).join('');
+}
+
+function showTimelineDetail(idx) {
+  const e = timelineData[idx];
+  const detail = document.getElementById('timeline-detail');
+  document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.timeline-item')[idx].classList.add('active');
+
+  detail.innerHTML = `
+    <div class="detail-acto">${e.acto} · <span class="${e.tipo === 'Principal' ? 'badge-principal' : 'badge-secundaria'}">${e.tipo}</span></div>
+    <div class="detail-title">${e.name}</div>
+    <div class="detail-fecha">${e.fecha}</div>
+    <div class="detail-texto">${e.texto}</div>
+    <div class="detail-mision">
+      <span class="detail-mision-label">⚔ Misión de Juego</span>
+      <div>${e.mision}</div>
+    </div>
+  `;
+  detail.classList.add('visible');
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ================================================================
+// MISIONES
+// ================================================================
+function buildMisiones() {
+  const container = document.getElementById('misiones-content');
+  container.innerHTML = misionesData.map(acto => `
+    <div class="acto-block fade-in">
+      <div class="acto-header">
+        <div class="acto-number">${acto.acto}</div>
+        <div class="acto-info">
+          <div class="acto-label">Acto ${acto.acto}</div>
+          <div class="acto-title">${acto.actoTitle}</div>
+        </div>
+      </div>
+      <div class="mision-grid">
+        ${acto.misiones.map(m => `
+          <div class="mision-card ${m.tipo}" onclick="toggleMision(this)">
+            <div class="mision-num">Misión ${m.num}</div>
+            <div class="mision-name">${m.name}</div>
+            <span class="mision-type type-${m.tipo}">${m.tipo === 'principal' ? 'Principal' : 'Secundaria'}</span>
+            <div class="mision-desc">${m.desc}</div>
+            <div class="mision-consejo">💡 ${m.consejo}</div>
+            <span class="mision-toggle">▼ Ver detalles</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleMision(card) {
+  const wasExpanded = card.classList.contains('expanded');
+  card.classList.toggle('expanded');
+  const toggle = card.querySelector('.mision-toggle');
+  toggle.textContent = card.classList.contains('expanded') ? '▲ Ocultar' : '▼ Ver detalles';
+}
+
+// ================================================================
+// TRUCOS TABS
+// ================================================================
+function switchTab(id) {
+  document.querySelectorAll('.truco-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.truco-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+
+// ================================================================
+// AUDIO PLAYER
+// ================================================================
+let currentTrack = 0;
+let audio = new Audio();
+let isPlaying = false;
+
+function buildTrackList() {
+  const list = document.getElementById('track-list');
+  list.innerHTML = tracksData.map((t, i) => `
+    <div class="track-item ${i === 0 ? 'active' : ''}" id="track-${i}">
+      <div class="track-num" onclick="selectTrack(${i})">${t.num}</div>
+      <div class="track-info" onclick="selectTrack(${i})">
+        <div class="track-title-list">${t.title}</div>
+        <div class="track-character-list">${t.character}</div>
+      </div>
+      <button class="track-lyrics-btn" onclick="toggleLyrics(${i}, this)">Letra</button>
+    </div>
+    <div class="lyrics-panel" id="lyrics-${i}">
+      <div class="lyrics-title">⚜ Letra — ${t.title}</div>
+      <div class="lyrics-text">${t.lyrics}</div>
+    </div>
+  `).join('');
+}
+
+function selectTrack(idx) {
+  currentTrack = idx;
+  const t = tracksData[idx];
+
+  audio.pause();
+  audio.src = t.file;
+  audio.volume = parseFloat(document.getElementById('volume-slider').value);
+
+  document.getElementById('player-title').textContent = t.title;
+  document.getElementById('player-character').textContent = t.character;
+
+  document.querySelectorAll('.track-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('track-' + idx).classList.add('active');
+
+  if (isPlaying) {
+    audio.play().catch(() => {});
+  }
+}
+
+function togglePlay() {
+  if (audio.paused) {
+    if (!audio.src || audio.src === window.location.href) {
+      audio.src = tracksData[currentTrack].file;
+      audio.volume = parseFloat(document.getElementById('volume-slider').value);
+    }
+    audio.play().then(() => {
+      isPlaying = true;
+      document.getElementById('btn-play').textContent = '⏸';
+    }).catch(e => {
+      console.log('Audio play failed:', e);
+    });
+  } else {
+    audio.pause();
+    isPlaying = false;
+    document.getElementById('btn-play').textContent = '▶';
+  }
+}
+
+function toggleLyrics(idx, btn) {
+  const panel = document.getElementById('lyrics-' + idx);
+  panel.classList.toggle('open');
+  btn.textContent = panel.classList.contains('open') ? 'Cerrar' : 'Letra';
+}
+
+// Progress
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('time-current').textContent = formatTime(audio.currentTime);
+  document.getElementById('time-total').textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener('ended', () => {
+  currentTrack = (currentTrack + 1) % tracksData.length;
+  selectTrack(currentTrack);
+  audio.play().then(() => {
+    document.getElementById('btn-play').textContent = '⏸';
+  }).catch(() => {});
+});
+
+// Progress click
+document.getElementById('progress-wrap').addEventListener('click', (e) => {
+  if (!audio.duration) return;
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = pct * audio.duration;
+});
+
+document.getElementById('btn-play').addEventListener('click', togglePlay);
+document.getElementById('btn-prev').addEventListener('click', () => {
+  currentTrack = (currentTrack - 1 + tracksData.length) % tracksData.length;
+  selectTrack(currentTrack);
+});
+document.getElementById('btn-next').addEventListener('click', () => {
+  currentTrack = (currentTrack + 1) % tracksData.length;
+  selectTrack(currentTrack);
+});
+document.getElementById('volume-slider').addEventListener('input', (e) => {
+  audio.volume = parseFloat(e.target.value);
+});
+
+function formatTime(s) {
+  if (isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60).toString().padStart(2, '0');
+  return `${m}:${sec}`;
+}
+
+// ================================================================
+// SCROLL FADE IN
+// ================================================================
+function initScrollObserver() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+}
+
+// ================================================================
+// INIT
+// ================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  createEmbers();
+  buildTimeline();
+  buildMisiones();
+  buildTrackList();
+  initScrollObserver();
+
+  // Load first track
+  audio.src = tracksData[0].file;
+  audio.volume = 0.8;
+});
+</script>
+</body>
+</html>
